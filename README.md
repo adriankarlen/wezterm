@@ -1,0 +1,2 @@
+# wezterm
+my wezterm conf
