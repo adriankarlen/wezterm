@@ -1,24 +1,24 @@
-local wez = require("wezterm")
-local utils = require("lua.utils")
+local wez = require "wezterm"
+local utils = require "lua.utils"
 
-local appearance = require("lua.appearance")
-local bar = wez.plugin.require("https://github.com/adriankarlen/bar.wezterm")
-local mappings = require("lua.mappings")
+local appearance = require "lua.appearance"
+local bar = wez.plugin.require "https://github.com/adriankarlen/bar.wezterm"
+local mappings = require "lua.mappings"
 
 local c = {}
 
 if wez.config_builder then
-	c = wez.config_builder()
+  c = wez.config_builder()
 end
 
 -- General configurations
 c.font = wez.font("SF Mono", { weight = "Medium" })
 c.font_rules = {
-	{
-		italic = true,
-		intensity = "Half",
-		font = wez.font("SF Mono", { weight = "Medium", italic = true }),
-	},
+  {
+    italic = true,
+    intensity = "Half",
+    font = wez.font("SF Mono", { weight = "Medium", italic = true }),
+  },
 }
 c.font_size = 12
 c.default_prog = utils.is_windows and { "pwsh", "-NoLogo" } or "zsh"
