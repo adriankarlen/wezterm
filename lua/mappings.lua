@@ -1,4 +1,4 @@
-local wez = require("wezterm")
+local wez = require "wezterm"
 local act = wez.action
 local callback = wez.action_callback
 
@@ -20,57 +20,57 @@ local leader = { mods = mod.c, key = "a", timeout_miliseconds = 1000 }
 local keys = function()
   local keys = {
     -- CTRL-A, CTRL-A sends CTRL-A
-    keybind({ mod.l, mod.c }, "a", act.SendString("\x01")),
+    keybind({ mod.l, mod.c }, "a", act.SendString "\x01"),
 
     -- pane and tabs
-    keybind({ mod.l }, "ö", act.SplitVertical({ domain = "CurrentPaneDomain" })),
-    keybind({ mod.l }, "ä", act.SplitHorizontal({ domain = "CurrentPaneDomain" })),
+    keybind({ mod.l }, "ö", act.SplitVertical { domain = "CurrentPaneDomain" }),
+    keybind({ mod.l }, "ä", act.SplitHorizontal { domain = "CurrentPaneDomain" }),
     keybind({ mod.l }, "z", act.TogglePaneZoomState),
-    keybind({ mod.l }, "c", act.SpawnTab("CurrentPaneDomain")),
-    keybind({ mod.l }, "h", act.ActivatePaneDirection("Left")),
-    keybind({ mod.l }, "j", act.ActivatePaneDirection("Down")),
-    keybind({ mod.l }, "k", act.ActivatePaneDirection("Up")),
-    keybind({ mod.l }, "l", act.ActivatePaneDirection("Right")),
-    keybind({ mod.l }, "x", act.CloseCurrentPane({ confirm = true })),
-    keybind({ mod.l, mod.s }, "H", act.AdjustPaneSize({ "Left", 5 })),
-    keybind({ mod.l, mod.s }, "J", act.AdjustPaneSize({ "Down", 5 })),
-    keybind({ mod.l, mod.s }, "K", act.AdjustPaneSize({ "Up", 5 })),
-    keybind({ mod.l, mod.s }, "L", act.AdjustPaneSize({ "Right", 5 })),
-    keybind({ mod.l, mod.s }, "&", act.CloseCurrentTab({ confirm = true })),
+    keybind({ mod.l }, "c", act.SpawnTab "CurrentPaneDomain"),
+    keybind({ mod.l }, "h", act.ActivatePaneDirection "Left"),
+    keybind({ mod.l }, "j", act.ActivatePaneDirection "Down"),
+    keybind({ mod.l }, "k", act.ActivatePaneDirection "Up"),
+    keybind({ mod.l }, "l", act.ActivatePaneDirection "Right"),
+    keybind({ mod.l }, "x", act.CloseCurrentPane { confirm = true }),
+    keybind({ mod.l, mod.s }, "H", act.AdjustPaneSize { "Left", 5 }),
+    keybind({ mod.l, mod.s }, "J", act.AdjustPaneSize { "Down", 5 }),
+    keybind({ mod.l, mod.s }, "K", act.AdjustPaneSize { "Up", 5 }),
+    keybind({ mod.l, mod.s }, "L", act.AdjustPaneSize { "Right", 5 }),
+    keybind({ mod.l, mod.s }, "&", act.CloseCurrentTab { confirm = true }),
     keybind(
       { mod.l },
       "e",
-      act.PromptInputLine({
-        description = wez.format({
+      act.PromptInputLine {
+        description = wez.format {
           { Attribute = { Intensity = "Bold" } },
           { Foreground = { AnsiColor = "Fuchsia" } },
           { Text = "Renaming Tab Title...:" },
-        }),
+        },
         action = callback(function(win, _, line)
           if line == "" then
             return
           end
           win:active_tab():set_title(line)
         end),
-      })
+      }
     ),
 
     -- workspaces
-    keybind({ mod.l }, "w", act.ShowLauncherArgs({ flags = "FUZZY|WORKSPACES" })),
+    keybind({ mod.l }, "w", act.ShowLauncherArgs { flags = "FUZZY|WORKSPACES" }),
 
     -- copy and paste
-    keybind({ mod.c, mod.s }, "c", act.CopyTo("Clipboard")),
-    keybind({ mod.c, mod.s }, "v", act.PasteFrom("Clipboard")),
+    keybind({ mod.c, mod.s }, "c", act.CopyTo "Clipboard"),
+    keybind({ mod.c, mod.s }, "v", act.PasteFrom "Clipboard"),
 
     -- launch spotify_player as a small pane in the bottom
     keybind(
       { mod.l },
       "s",
-      act.SplitPane({
+      act.SplitPane {
         direction = "Down",
         command = { args = { "spotify_player" } },
         size = { Cells = 6 },
-      })
+      }
     ),
 
     -- update all plugins
