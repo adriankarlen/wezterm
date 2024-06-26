@@ -31,5 +31,4 @@ M.is_an_editor = function(name)
   return false
 end
 
-
 return M
