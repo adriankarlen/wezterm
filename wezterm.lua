@@ -8,17 +8,17 @@ local mappings = require("lua.mappings")
 local c = {}
 
 if wez.config_builder then
-  c = wez.config_builder()
+	c = wez.config_builder()
 end
 
 -- General configurations
-c.font = wez.font("Cartograph CF")
+c.font = wez.font("SF Mono", { weight = "Medium" })
 c.font_rules = {
-  {
-    italic = true,
-    intensity = "Half",
-    font = wez.font("Cartograph CF", { weight = "Regular", italic = true }),
-  },
+	{
+		italic = true,
+		intensity = "Half",
+		font = wez.font("SF Mono", { weight = "Medium", italic = true }),
+	},
 }
 c.font_size = 12
 c.default_prog = utils.is_windows and { "pwsh", "-NoLogo" } or "zsh"
