@@ -2,18 +2,30 @@ local M = {}
 local editors = {
   "nvim",
 }
+local wezterm = require('wezterm')
 
-M.is_windows = package.config:sub(1, 1) == "\\"
+local function is_found(str, pattern)
+   return string.find(str, pattern) ~= nil
+end
 
-M.basename = function(path) -- get filename from path
-  if type(path) ~= "string" then
+M.platform = function()
+   local is_win = is_found(wezterm.target_triple, 'windows')
+   local is_linux = is_found(wezterm.target_triple, 'linux')
+   local is_mac = is_found(wezterm.target_triple, 'apple')
+   local os = is_win and 'windows' or is_linux and 'linux' or is_mac and 'mac' or 'unknown'
+   return {
+      os = os,
+      is_win = is_win,
+      is_linux = is_linux,
+      is_mac = is_mac,
+   }
+end
+
+M.basename = function(s)
+  if type(s) ~= "string" then
     return nil
   end
-  if M.is_windows then
-    return path:gsub("(.*[/\\])(.*)", "%2") -- replace (path/ or path\)(file) with (file)
-  else
-    return path:gsub("(.*/)(.*)", "%2")
-  end -- replace (path/)(file)          with (file)
+  return s:gsub("(.*[/\\])(.*)%.(.*)", "%2")
 end
 
 M.is_an_editor = function(name)
@@ -29,6 +41,11 @@ M.is_an_editor = function(name)
     end
   end
   return false
+end
+
+M.is_vim = function(pane)
+  -- This is set by the plugin, and unset on ExitPre in Neovim
+  return pane:get_user_vars().IS_NVIM == "true"
 end
 
 return M

@@ -82,6 +82,28 @@ local keys = function()
         win:toast_notification("wezterm", "plugins updated!", nil, 4000)
       end)
     ),
+
+    -- keybind(
+    --   { mod.l },
+    --   "r",
+    --   act.PromptInputLine {
+    --     description = wez.format {
+    --       { Attribute = { Intensity = "Bold" } },
+    --       { Foreground = { AnsiColor = "Teal" } },
+    --       { Text = "Enter run command: " },
+    --     },
+    --     action = callback(function(_, _, line)
+    --       if line == "" then
+    --         return
+    --       end
+    --       act.SplitPane {
+    --         direction = "Down",
+    --         command = { args = { line } },
+    --         size = { Cells = 10 },
+    --       }
+    --     end),
+    --   }
+    -- ),
   }
 
   -- tab navigation
